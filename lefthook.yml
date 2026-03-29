@@ -1,0 +1,29 @@
+pre-commit:
+  parallel: true
+  commands:
+    fmt:
+      name: gofmt
+      glob: "**/*.go"
+      run: |
+        unformatted=$(gofmt -l {staged_files})
+        if [ -n "$unformatted" ]; then
+          echo "These files need formatting:"
+          echo "$unformatted"
+          echo "Run: gofmt -w ."
+          exit 1
+        fi
+
+    vet:
+      name: go vet
+      glob: "**/*.go"
+      run: go vet ./...
+
+    lint:
+      name: golangci-lint
+      glob: "**/*.go"
+      run: golangci-lint run --fix
+
+    test:
+      name: go test
+      glob: "**/*.go"
+      run: go test ./...

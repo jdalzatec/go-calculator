@@ -9,14 +9,14 @@ import (
 
 func TestEvaluate(t *testing.T) {
 	type args struct {
+		operator string
 		lhs      int64
 		rhs      int64
-		operator string
 	}
 	tests := []struct {
+		want    *int64
 		name    string
 		args    args
-		want    *int64
 		wantErr bool
 	}{
 		{
