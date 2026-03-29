@@ -26,20 +26,9 @@ go test ./...
 
 ## Linter
 
-Install `golanci-lint`
-
-```bash
-go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
-```
-
-Install `lefthook`
-
-```bash
-brew install lefthook
-```
-
-Run `lefthook`
-
-```bash
-lefthook run pre-commit --all-files
-```
+* [Install `golanci-lint`](https://golangci-lint.run/docs/welcome/install/local/).
+* [Install `lefthook`](https://lefthook.dev/install/)
+* Run `lefthook`
+    ```bash
+    lefthook run pre-commit --all-files
+    ```
