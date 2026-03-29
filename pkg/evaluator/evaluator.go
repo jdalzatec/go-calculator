@@ -12,7 +12,7 @@ func Evaluate(lhs int64, rhs int64, operator string) (*int64, error) {
 		return new(lhs * rhs), nil
 	case "/":
 		if rhs == 0 {
-			return nil, errors.New("rhs must be different than 0")
+			return nil, errors.New("[division] rhs must be different than 0")
 		}
 		return new(lhs / rhs), nil
 	default:

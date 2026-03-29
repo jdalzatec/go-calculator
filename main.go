@@ -8,11 +8,12 @@ import (
 	"os"
 	"slices"
 
+	"github.com/jdalzatec/calculator/pkg/evaluator"
 	"github.com/urfave/cli/v3"
 )
 
 func main() {
-	cli := cli.Command{
+	cmd := cli.Command{
 		Name:  "cli",
 		Usage: "A sample calculator",
 		Flags: []cli.Flag{
@@ -68,9 +69,14 @@ func main() {
 			operator := command.String("operator")
 			lhs := command.Int64("lhs")
 			rhs := command.Int64("rhs")
-			fmt.Println("operator:", operator)
-			fmt.Println("lhs:", lhs)
-			fmt.Println("rhs:", rhs)
+			result, err := evaluator.Evaluate(lhs, rhs, operator)
+
+			if err != nil {
+				return fmt.Errorf("error evaluating expression: %w", err)
+			}
+
+			fmt.Printf("%d %s %d = %d\n", lhs, operator, rhs, *result)
+
 			return nil
 		},
 	}
@@ -78,7 +84,7 @@ func main() {
 	defer func() {
 		fmt.Println("Goodbye")
 	}()
-	err := cli.Run(ctx, os.Args)
+	err := cmd.Run(ctx, os.Args)
 	if err != nil {
 		slog.ErrorContext(ctx, "There was an error", "->", err)
 		os.Exit(1)
